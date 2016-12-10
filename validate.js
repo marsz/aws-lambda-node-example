@@ -1,4 +1,4 @@
-var validate = function(dynamodb, params) {
+var validate = function(context, dynamodb, params) {
   var query_params = {
     TableName: 'accounts',
     Select: 'ALL_ATTRIBUTES',
@@ -12,7 +12,7 @@ var validate = function(dynamodb, params) {
   }
   return dynamodb.query(query_params, function(err, data) {
     if (err) {
-      return false
+      context.done(null, { fail: true })
     } else {
       var item = data.Items[0]
       if(item && item.auth_code['S'] == params.auth_code) {
@@ -22,12 +22,15 @@ var validate = function(dynamodb, params) {
           Item: item
         }
         dynamodb.putItem(put_params, function(err, data) {
+          if(err == null)
+            context.done(null, { status: item.status.S })
+          else
+            context.done(null, { fail: err })
         })
-        return true
       } else {
-        return false
+        context.done(null, { fail: true })
       }
     }
-  }).emit()
+  })
 }
 module.exports.run = validate

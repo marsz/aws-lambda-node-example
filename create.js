@@ -1,4 +1,4 @@
-var create = function(dynamodb, params) {
+var create = function(context, dynamodb, params) {
 
   var generate_auth_code = function() {
     var md5 = require('md5');
@@ -23,12 +23,11 @@ var create = function(dynamodb, params) {
   }
 
   var result = dynamodb.putItem(attrs, function(err, data) {
+    if(err == null)
+      context.done(null, { auth_code: auth_code })
+    else
+      context.done(null, { fail: err })
   })
-
-  if(result.response.error == null) {
-    return auth_code
-  } else {
-    return result
-  }
+  return auth_code
 }
 module.exports.run = create

@@ -14,12 +14,9 @@ module.exports.handler = function(event, context) {
   switch(event.action) {
     case 'create':
       var action = require('./create')
-      auth_code = action.run(dynamodb, event.params)
-      context.done(null, { auth_code: auth_code })
-      return auth_code
+      return action.run(context, dynamodb, event.body_json)
     case 'validate':
       var action = require('./validate')
-      res = action.run(dynamodb, event.params)
-      context.done(null, res)
+      return action.run(context, dynamodb, event.body_json)
   }
 }
