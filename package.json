@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.7.13"
+  },
+  "name": "aws-lambda-node-exmaple",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:marsz/aws-lambda-node-example.git",
+  "author": "marsz <marsz330@gmail.com>",
+  "license": "MIT"
+}
