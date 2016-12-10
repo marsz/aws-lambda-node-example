@@ -13,10 +13,10 @@ module.exports.handler = function(event, context) {
   var result = null
   switch(event.action) {
     case 'create':
-      var action = require('./create')
+      var action = require('./actions/create')
       return action.run(context, dynamodb, event.body_json)
     case 'validate':
-      var action = require('./validate')
+      var action = require('./actions/validate')
       return action.run(context, dynamodb, event.body_json)
   }
 }
