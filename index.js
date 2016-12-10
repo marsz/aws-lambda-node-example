@@ -3,7 +3,7 @@ module.exports.handler = function(event, context) {
   var config = require('./config.json')
   var AWS = require('aws-sdk');
   AWS.config.update({
-      region: 'ap-northeast-1',
+      region: config.aws.region,
       accessKeyId: config.aws.access_key_id,
       secretAccessKey: config.aws.secret_access_key
   })
@@ -14,7 +14,12 @@ module.exports.handler = function(event, context) {
   switch(event.action) {
     case 'create':
       var action = require('./create')
-      result = action.run(dynamodb, event.params)
+      auth_code = action.run(dynamodb, event.params)
+      context.done(null, { auth_code: auth_code })
+      return auth_code
+    case 'validate':
+      var action = require('./validate')
+      res = action.run(dynamodb, event.params)
+      context.done(null, res)
   }
-  context.done(null, result)
 }
