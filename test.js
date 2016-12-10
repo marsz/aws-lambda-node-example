@@ -5,13 +5,18 @@ var event = {
 }
 var context = {
   done: function(a, b) {
-    console.log(b)
+    if(a == null) {
+      console.log(b)
+    } else {
+      console.log('Error: ', a)
+    }
   }
 }
 var run = require('./index').handler
-event.action = 'create'
 
-var auth_code = run(event, context)
+// event.action = 'create'
+// auth_code = run(event, context)
+auth_code = 'e456d950'
 event.action = 'validate'
 event.body_json = {
   'fb_uid': '1234',
