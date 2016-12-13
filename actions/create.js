@@ -7,7 +7,7 @@ var create = function(context, params) {
   }
   var auth_code = generate_auth_code()
   var Account = require('../lib/account')
-  var account = new Account(params.fb_uid)
+  var account = new Account(params.account_name)
   account.find(function(account, err) {
     if(account.has_error()) {
       context.done({ fail: err })
@@ -19,10 +19,10 @@ var create = function(context, params) {
       } else {
         account.update({
           auth_code: auth_code,
-          status: 'unauthorized'
+          auth_status: 'unauthorized'
         }, function(account, err) {
           if(account.errors.length == 0) {
-            context.done(null, { auth_code: auth_code })
+            context.done(null, { account_name: account.fb_uid, auth_code: auth_code })
           } else {
             context.done({ fail: err })
           }

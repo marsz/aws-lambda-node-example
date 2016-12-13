@@ -1,6 +1,6 @@
 var event = {
-  body_json: {
-    fb_uid: '1234'
+  "body_json": {
+    "account_name": '1234'
   }
 }
 var context = {
@@ -16,10 +16,10 @@ var run = require('./index').handler
 
 // event.action = 'create'
 // auth_code = run(event, context)
-auth_code = 'e456d950'
+// console.log(auth_code)
+auth_code = '92b58742'
 event.action = 'validate'
 event.body_json = {
-  'fb_uid': '1234',
   'auth_code': auth_code
 }
 run(event, context)
