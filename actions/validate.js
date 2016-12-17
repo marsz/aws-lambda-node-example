@@ -5,13 +5,13 @@ var validate = function(context, params) {
     if(account.exists == true && !account.is_authorized()) {
       account.validate(params.auth_code, function(account, err) {
         if(account.has_error()) {
-          context.done({ fail: err })
+          context.done(err)
         } else {
           context.done(null, { account_name: account.fb_uid, status: account.attrs.auth_status.S })
         }
       })
     } else {
-      context.done({ fail: 'not exists or authorized' })
+      context.done('not exists or authorized')
     }
   })
 }

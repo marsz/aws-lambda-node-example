@@ -1,6 +1,6 @@
 var event = {
   "body_json": {
-    "account_name": '1234'
+    "account_name": '111'
   }
 }
 var context = {
@@ -17,7 +17,7 @@ var run = require('./index').handler
 // event.action = 'create'
 // auth_code = run(event, context)
 // console.log(auth_code)
-auth_code = '92b58742'
+auth_code = '95cbf527'
 event.action = 'validate'
 event.body_json = {
   'auth_code': auth_code
